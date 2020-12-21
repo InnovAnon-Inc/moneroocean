@@ -1,0 +1,28 @@
+language: c++
+
+#compiler:
+#  - gcc
+#  - clang
+
+services:
+  - docker
+
+script:
+  # test natively
+  - docker build                      \
+            -t innovanon/moneroocean:native \
+            --pull .
+  - docker run -d innovanon/moneroocean:native
+  - sleep 19
+  - docker ps -a
+  - docker stop innovanon/moneroocean:native
+  # deploy generic
+  - docker build                       \
+            -t innovanon/moneroocean:generic \
+            --pull .
+  - docker run -d innovanon/moneroocean:generic
+  - sleep 19
+  - docker ps -a
+  - docker stop innovanon/moneroocean:generic
+  # TODO deploy
+
